@@ -8,6 +8,8 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useSidebar } from "@/components/ui/sidebar"
 import Image from "next/image"
+import useProject from "@/hooks/use-projects"
+import useFetch from "@/hooks/use-fetch"
 
 
 const MenuItem = [
@@ -33,21 +35,12 @@ const MenuItem = [
     },
 ]
 
-const ProjectItem = [
-    {
-        name: "Project 1",
-    },
-    {
-        name: "Project 2",
-    },
-    {
-        name: "Project 3",
-    },
-]
 
 export function AppSidebar() {
     const pathname = usePathname()
     const {open} = useSidebar()
+    const { project , selectedprojectId, setProjectId } = useProject();
+
     return (
        <Sidebar>
         <SidebarHeader>
@@ -92,14 +85,17 @@ export function AppSidebar() {
             </SidebarGroupLabel>
             <SidebarGroupContent>
                 <SidebarMenu>
-                {ProjectItem.map((item) => {
+                {project?.map((item) => {
                     return (
                      <SidebarMenuItem key={item.name}>
                         <SidebarMenuButton asChild>
-                         <div>
+                         <div onClick={() => {
+                            setProjectId(item.id)
+                         }}>
                             <div className={cn(
                                 'rounded-sm border size-6 flex items-center justify-center text-center text-sm bg-white text-primary',{
-                                  'bg-primary text-white' : true
+                                  'bg-primary text-white' : item.id === selectedprojectId
+
                                 }
                             )}>
                                 {item.name[0]}
