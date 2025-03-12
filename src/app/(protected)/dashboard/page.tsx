@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-export const Dashboard = () => {
+export default async function Dashboard() {
   return (
     <div>Dashboard</div>
   )
