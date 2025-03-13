@@ -1,18 +1,12 @@
 import "@/styles/globals.css";
-
-import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 import  { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { TRPCReactProvider } from "@/trpc/react";
-import { Inter } from 'next/font/google'
+import { GeistSans } from "geist/font/sans";
 
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-inter',
-})
+
 
 export const metadata: Metadata = {
   title: "GitCollab",
@@ -25,7 +19,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <ClerkProvider>
-    <html lang="en" className={`${inter.variable}`}>
+    <html lang="en" className={`${GeistSans.variable}`}>
       <body>  
         <ThemeProvider
             attribute="class"
