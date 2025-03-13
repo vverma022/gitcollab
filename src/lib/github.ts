@@ -7,7 +7,6 @@ export const octokit = new Octokit({
     auth: process.env.GITHUB_TOKEN,
 })
 
-const githuburl = "https://github.com/vverma022/mujcentral2.0"
 
 type Response = {
     commitHash: string, 

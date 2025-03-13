@@ -1,12 +1,14 @@
 "use client"
 import useProject from "@/hooks/use-projects"
-import { ExternalLink, Github, Link } from "lucide-react";
+import { ExternalLink, Github } from "lucide-react";
+import CommitLog from "./commit-log";
+import Link from "next/link";
 
 
 
 const Dashboard = () => {
   const { projects } = useProject();
-
+  
   return (
     <div>
     <div className="flex items-center justify-between flex-wrap gap-y-4">
@@ -42,7 +44,7 @@ const Dashboard = () => {
     </div>
 
     <div className="mt-8"></div>
-    CommitLog
+     <CommitLog />
     </div>
   )
 }
