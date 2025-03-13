@@ -4,6 +4,8 @@ import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 import  { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/sonner";
+import { Inter } from 'next/font/google';
+import { ThemeProvider } from "@/components/ui/theme-provider";
 
 import { TRPCReactProvider } from "@/trpc/react";
 
@@ -19,8 +21,15 @@ export default function RootLayout({
   return (
     <ClerkProvider>
     <html lang="en" className={`${GeistSans.variable}`}>
-      <body>
-        <TRPCReactProvider>{children}</TRPCReactProvider>
+      <body>  
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+          <TRPCReactProvider>{children}</TRPCReactProvider>
+          </ThemeProvider>
         <Toaster richColors />
       </body>
     </html>

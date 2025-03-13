@@ -52,11 +52,12 @@ const CreatePage = () => {
         style={{
           objectFit: 'contain', // Ensures the image scales proportionally
         }}
+        className="rounded-xl bg-white"
       />
     <div>
         <div>
-            <h1 className="font-semibold text-2xl">Link your repository</h1>
-            <p className="text-sm text-muted-foreground">Connect your repo URL</p>
+            <h1 className="font-semibold text-2xl">Connect Your Repository</h1>
+            <p className="text-sm text-muted-foreground">Connect your projects with GitCollab by entering the details below</p>
             <div>
                 <div className="h-4"></div>
                 <div>

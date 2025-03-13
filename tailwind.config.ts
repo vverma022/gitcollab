@@ -9,7 +9,7 @@ export default {
   		fontFamily: {
   			sans: [
   				'var(--font-geist-sans)',
-                    ...fontFamily.sans
+                    ...fontFamily.sans,
                 ]
   		},
   		borderRadius: {
