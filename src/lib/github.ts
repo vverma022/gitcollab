@@ -19,7 +19,7 @@ type Response = {
 export const getCommitHashes = async (githuburl: string): Promise<Response[]> => {
     const [owner, repo] = githuburl.split('/').slice(-2)
 
-    if(!owner || repo){
+    if(!owner || !repo){
         throw new Error("Invalid Github Url")
     }
 
