@@ -46,7 +46,7 @@ export function AppSidebar() {
             <div className="flex items-center gap-2">
                <Image src='/logogit.jpeg' width={40} height={40} alt="logo" className="rounded-full" />
                {open && (
-                  <h1 className="text-xl font-bold font-mono">
+                  <h1 className="text-xl font-bold">
                   GitCollab
                  </h1>
                )}
