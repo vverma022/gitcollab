@@ -3,6 +3,7 @@
 
 generator client {
     provider = "prisma-client-js"
+    
 }
 
 datasource db {
@@ -38,6 +39,8 @@ model Project {
     usertoproject UsertoProject[]
 
     commits Commit[]
+
+    sourceCodeEmbeddings SourceCodeEmbedding[]
     
 }
 
@@ -53,6 +56,18 @@ model UsertoProject {
     project Project @relation(fields: [projectId], references: [id])
 
     @@unique([userId, projectId])
+}
+
+model SourceCodeEmbedding {
+    id String @id @default(cuid())
+
+    summaryEmbedding Unsupported("vector(768)")?
+    sourceCode String 
+    fileName String 
+    summary String
+
+    projectId String 
+    project Project @relation(fields: [projectId], references: [id])
 }
 
 model Commit {
