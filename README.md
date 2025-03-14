@@ -23,8 +23,8 @@ The following environment variables are required for the application to function
 DATABASE_URL="mysql://root:NewBeginning@2024@localhost:3306/gitcollab"
 
 # Clerk Configuration
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_Y2FyZWZ1bC1oZXJtaXQtOC5jbGVyay5hY2NvdW50cy5kZXYk
-CLERK_SECRET_KEY=sk_test_PTHBMHJzG3LCDY5iyFH3vKzHN5Gcw6eJ0mY9jtL4nI
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
 
 NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
 NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
