@@ -1,29 +1,58 @@
-# Create T3 App
+# GitColab - T3 Stack Project
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+This is a **T3 Stack** project bootstrapped with `create-t3-app`.
 
-## What's next? How do I make an app with this?
+## What's Included?
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+This project comes pre-configured with:
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+- **Next.js** - React Framework for production.
+- **Prisma** - Database toolkit for seamless database management.
+- **tRPC** - Full-stack typesafe APIs.
+- **Tailwind CSS** - Utility-first CSS framework.
+- **Clerk** - Authentication made simple.
+- **LangChain.js** - Framework for building applications with LLMs.
+- **Octokit** - Official GitHub REST API client.
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+## Environment Variables
 
-## Learn More
+The following environment variables are required for the application to function properly. Add them to a `.env` file in the root directory.
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+```plaintext
+# Prisma Database Connection URL
+DATABASE_URL="mysql://root:NewBeginning@2024@localhost:3306/gitcollab"
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+# Clerk Configuration
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_Y2FyZWZ1bC1oZXJtaXQtOC5jbGVyay5hY2NvdW50cy5kZXYk
+CLERK_SECRET_KEY=sk_test_PTHBMHJzG3LCDY5iyFH3vKzHN5Gcw6eJ0mY9jtL4nI
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL=/
+NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL=/
+NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL='/add-user'
 
-## How do I deploy this?
+# GitHub Token
+GITHUB_TOKEN=''
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+# Google Gemini API Key
+GEMINI_API_KEY=''
+
+# Prisma Database Connection URL
+DATABASE_URL="mysql://<username>:<password>@<host>:<port>/<database_name>"
+
+# Clerk Configuration
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=<your_clerk_publishable_key>
+CLERK_SECRET_KEY=<your_clerk_secret_key>
+
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL=/
+NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL=/
+NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL=/add-user
+
+# GitHub Token
+GITHUB_TOKEN=<your_github_personal_access_token>
+
+# Google Gemini API Key
+GEMINI_API_KEY=<your_google_gemini_api_key>
