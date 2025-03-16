@@ -13,6 +13,7 @@ import MDEditor from '@uiw/react-md-editor'
 import CodeReferences from './code-reference'
 import { api } from '@/trpc/react'
 import { toast } from 'sonner'
+import useFetch from '@/hooks/use-fetch'
 
 const AskQuestionsCard = () => {
     const { projects } = useProject()
@@ -43,6 +44,7 @@ const AskQuestionsCard = () => {
         }
         setLoading(false)
     }
+    const refetch = useFetch()
   return (
     <>
     <Dialog open={open} onOpenChange={setOpen}>
@@ -59,6 +61,7 @@ const AskQuestionsCard = () => {
                     filesReferences
                 },{ onSuccess: () => {
                     toast.success('Answer Saved')
+                    refetch()
                 }, onError: () => {
                     toast.error('Failed to Save Answer')
                 }
