@@ -10,13 +10,13 @@ import { rejects } from "assert";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBbElJSrFwCVrnAU5jbiV48bxMikVOABwc",
-  authDomain: "gitcollab-5adcf.firebaseapp.com",
-  projectId: "gitcollab-5adcf",
-  storageBucket: "gitcollab-5adcf.firebasestorage.app",
-  messagingSenderId: "553510098263",
-  appId: "1:553510098263:web:e0d9c259ff38160e709a12",
-  measurementId: "G-NJ0N01VC7L"
+  apiKey: process.env.APIKEY,
+  authDomain: process.env.AUTH_DOMAIN ,
+  projectId: process.env.PROJECT_ID,
+  storageBucket: process.env.STORAGE_BUCKET,
+  messagingSenderId: process.env.MESSAGE_SENDER_ID ,
+  appId: process.env.APP_ID,
+  measurementId: process.env.MESUREMENT_ID
 };
 
 // Initialize Firebase
