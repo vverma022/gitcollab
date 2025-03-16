@@ -4,7 +4,6 @@ import { Input } from "@/components/ui/input";
 import { api } from "@/trpc/react";
 import { useForm  } from "react-hook-form";
 import { toast } from "sonner";
-import { useMutation } from "@tanstack/react-query";
 import useFetch from "@/hooks/use-fetch";
 import Image from "next/image";
 

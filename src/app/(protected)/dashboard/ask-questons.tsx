@@ -1,3 +1,4 @@
+"use client"
 import { Button } from '@/components/ui/button'
 import { CardContent, CardHeader, CardTitle, Card } from '@/components/ui/card'
 import { Dialog, DialogHeader } from '@/components/ui/dialog'
@@ -10,6 +11,8 @@ import { askQuestion } from './action'
 import { readStreamableValue } from 'ai/rsc'
 import MDEditor from '@uiw/react-md-editor'
 import CodeReferences from './code-reference'
+import { api } from '@/trpc/react'
+import { toast } from 'sonner'
 
 const AskQuestionsCard = () => {
     const { projects } = useProject()
@@ -18,6 +21,7 @@ const AskQuestionsCard = () => {
     const [loading, setLoading ] = React.useState(false)
     const [filesReferences,setFilesReferences] = React.useState<{fileName: string;sourceCode: string; summary: string}[]>([])
     const [answer, setAnswer] = React.useState(' ');
+    const saveAnswer = api.project.saveAnswer.useMutation()
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         setAnswer(' ')
@@ -47,10 +51,28 @@ const AskQuestionsCard = () => {
             <DialogTitle>
                 <Image src='/logogit.jpeg' alt='GitCollab' width={40} height={40} />
             </DialogTitle>
+            <Button disabled={saveAnswer.isPending} variant="outline" onClick={() => {
+                saveAnswer.mutate({
+                    projectId: projects!.id,
+                    question,
+                    answer,
+                    filesReferences
+                },{ onSuccess: () => {
+                    toast.success('Answer Saved')
+                }, onError: () => {
+                    toast.error('Failed to Save Answer')
+                }
+                })
+            }}>
+                Save Answer
+            </Button>
         </DialogHeader>
             <MDEditor.Markdown source={answer} className="max-w-[70vw] !h-full max-h-[40vh] overflow-scroll" />
             <div className="h4"></div>
             <CodeReferences filesReferences={filesReferences} />
+            <Button type="button" onClick={() => { setOpen(false) } }>
+                Close
+            </Button>
             
 
         </DialogContent>
