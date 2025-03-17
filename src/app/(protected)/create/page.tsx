@@ -44,14 +44,14 @@ const CreatePage = () => {
   return (
     <div className="flex items-center gap-12 h-full justify-center">
     <Image
-        src="/idea-launch.svg"
+        src="/bla.png"
         alt="poster"
         width={300} // Set a max width
         height={300} // Set a max height
         style={{
           objectFit: 'contain', // Ensures the image scales proportionally
         }}
-        className="rounded-xl bg-white"
+        className="rounded-xl "
       />
     <div>
         <div>

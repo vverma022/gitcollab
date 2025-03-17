@@ -1,3 +1,4 @@
+"use client"
 import useProject from "@/hooks/use-projects"
 import React from "react"
 import { api } from "@/trpc/react"
@@ -5,6 +6,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import AskQuestionsCard from "../dashboard/ask-questons"
 import MDEditor from "@uiw/react-md-editor"
 import CodeReferences from "../dashboard/code-reference"
+import { useQuery } from "@tanstack/react-query"
 
 
 
@@ -13,7 +15,7 @@ const QAPage = () => {
   const {selectedprojectId} = useProject()
   const {data: question} = api.project.getQuestions.useQuery({selectedprojectId})
   const [questionIndex, setQuestionIndex] = React.useState(0)
-  const question = question?.[questionIndex]
+  const questions = question?.[questionIndex]
 
   return (
     <Sheet>
@@ -22,7 +24,7 @@ const QAPage = () => {
       <h1 className="text-xl font-semibold">Saved Questions</h1>
       <div className="h-2"></div>
       <div className="flex flex-col gap-2">
-        {question?.map((question, index) => {
+        {questions?.map((question, index) => {
           return <React.Fragment key={question.id}>
             <SheetTrigger onClick={() => setQuestionIndex(index)}>
                 <div className="flex items-center gap-4 bg-white rounded-lg p-4 shadow border">

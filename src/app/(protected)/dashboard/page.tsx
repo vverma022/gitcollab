@@ -3,6 +3,8 @@ import useProject from "@/hooks/use-projects"
 import { ExternalLink, Github } from "lucide-react";
 import CommitLog from "./commit-log";
 import Link from "next/link";
+import AskQuestionsCard from "./ask-questons";
+import Meetingcard from "./meetingcard";
 
 
 
@@ -14,15 +16,17 @@ const Dashboard = () => {
     <div className="flex items-center justify-between flex-wrap gap-y-4">
       <div className="w-fit rounded-md bg-primary px-4 py-3">
         <div className="flex items-center">
-        <Github className="size-5 text-white" />
+        <Github className="size-5 text-white dark:text-black" />
         <div className="ml-2">
-            <p className="text-sm font-medium text-white">
+            <p className="text-sm font-light text-primary-foreground">
+              <span className="font-semibold">
                 This Project is Linked to {' '}
-                <Link href={projects?.githubUrl ?? " "} className="inline-flex items-center text-white/80 hover:underline" >
+                </span>
+                <Link href={projects?.githubUrl ?? " "} className="inline-flex items-center text-secondary hover:underline" >
                 {projects?.githubUrl}
                 <ExternalLink className="ml-1 size-4" />
                 </Link>
-            </p>
+                </p>
           </div>
         </div>
       </div>
@@ -38,8 +42,8 @@ const Dashboard = () => {
 
     <div className="mt-4">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-5">
-        Ask Question Card 
-        Meeting Card
+        <AskQuestionsCard />
+        <Meetingcard />
       </div>
     </div>
 

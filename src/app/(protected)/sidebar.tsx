@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar"
 import { cn } from "@/lib/utils"
-import { Bot, CreditCard, LayoutDashboard, Plus, Presentation } from "lucide-react"
+import { Bot, CreditCard, LayoutDashboard, Plus, Presentation , GitGraph } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useSidebar } from "@/components/ui/sidebar"
@@ -43,8 +43,8 @@ export function AppSidebar() {
     return (
        <Sidebar>
         <SidebarHeader>
-            <div className="flex items-center gap-2">
-               <Image src='/logogit.jpeg' width={40} height={40} alt="logo" className="rounded-full" />
+            <div className="flex items-center gap-2 ml-10">
+            <GitGraph className="h-10 w-6" />
                {open && (
                   <h1 className="text-xl font-bold">
                   GitCollab
@@ -56,7 +56,7 @@ export function AppSidebar() {
         <SidebarContent>
         <SidebarGroup>
             <SidebarGroupLabel>
-                Appppp
+                Application
             </SidebarGroupLabel>
             <SidebarGroupContent>
                 <SidebarMenu>
@@ -65,7 +65,7 @@ export function AppSidebar() {
                      <SidebarMenuItem key={item.title}>
                         <SidebarMenuButton asChild>
                            <Link href={item.url} className={cn({
-                            '!bg-primary !text-white': pathname === item.url
+                            '!bg-primary !text-secondary': pathname === item.url
                            })}>
                             <item.icon />
                             <span>{item.title}</span>
@@ -92,8 +92,8 @@ export function AppSidebar() {
                             setProjectId(item.id)
                          }}>
                             <div className={cn(
-                                'rounded-sm border size-6 flex items-center justify-center text-center text-sm bg-white text-primary',{
-                                  'bg-primary text-white' : item.id === selectedprojectId
+                                'rounded-sm border size-6 flex items-center justify-center text-center text-sm text-primary',{
+                                  'bg-secondary-foreground text-secondary' : item.id === selectedprojectId
 
                                 }
                             )}>

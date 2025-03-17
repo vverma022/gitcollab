@@ -27,8 +27,8 @@ export const IndexGitHubRepo = async (projectId: string, githubUrl: string, gith
         const sourceCodeEmbedding = await db.sourceCodeEmbedding.create({
             data: {
                 summary: embedding.summary,
-                SourceCode: embedding.sourceCode,
-                filename: embedding.filename,
+                sourceCode: embedding.sourceCode,
+                fileName: embedding.filename,
                 projectId
             }
         })
@@ -53,5 +53,5 @@ const generateEmbeddings = async (docs: Document[] ) => {
     }))
 }
 
-console.log(await LoadGitHubRepo('https://github.com/vverma022/gitcollab'))
+
 

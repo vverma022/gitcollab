@@ -4,9 +4,18 @@ import  { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { TRPCReactProvider } from "@/trpc/react";
-import { GeistSans } from "geist/font/sans";
 
+import { Geist, Geist_Mono } from "next/font/google";
 
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "GitCollab",
@@ -19,7 +28,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <ClerkProvider>
-    <html lang="en" className={`${GeistSans.variable}`}>
+    <html lang="en"  className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
       <body>  
         <ThemeProvider
             attribute="class"
