@@ -1,17 +1,25 @@
-import Link from "next/link";
-
-import { LatestPost } from "@/app/_components/post";
-import { api, HydrateClient } from "@/trpc/server";
-import { Button } from "@/components/ui/button";
+import { HeroLanding } from "./_components/landing/hero-landing";
+import { FeaturesSection } from "./_components/landing/features";
+import Powered from "./_components/landing/powered";
+import { NavBar } from "./_components/navbar";
+import { SiteFooter } from "./_components/site-footer";
+import { NavMobile } from "./_components/mobile-nav";
+import MaxWidthWrapper from "./_components/maxwidth";
+import BentoGrid from "./_components/landing/bentogrid";
 
 export default async function Home() {
-  const hello = await api.post.hello({ text: "from tRPC" });
-
-  void api.post.getLatest.prefetch();
-
+  // void api.post.getLatest.prefetch();
   return (
-    <div>
-      <Button >Click me</Button>
+    <div className="flex min-h-screen flex-col">
+     <NavMobile />
+     <NavBar scroll={true} />
+     <main className="flex-1">
+     <HeroLanding />
+     <FeaturesSection />
+    <Powered />
+    <BentoGrid />
+    </main>
+    <SiteFooter />
     </div>
   );
 }
