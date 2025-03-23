@@ -35,10 +35,10 @@ export function FeaturesSection() {
           spotlightColor="rgba(0, 102, 255, 0.2)"
         >
           <div className="flex flex-col  items-center space-y-4">
-            <feature.icon className="h-12 w-12" />
+            <feature.icon className="h-12 w-12 text-white" />
             <div className="space-y-2 text-center">
-              <h3 className="font-bold">{feature.title}</h3>
-              <p className="text-sm text-muted-foreground">{feature.description}</p>
+              <h3 className="font-bold text-white">{feature.title}</h3>
+              <p className="text-sm text-white">{feature.description}</p>
             </div>
           </div>
           </SpotlightCard>
