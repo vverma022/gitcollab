@@ -4,7 +4,7 @@ import MaxWidthWrapper from "../maxwidth";
 
 const logos = [
   {
-    title: "Next.js 14",
+    title: "Next.js 15",
     href: "https://nextjs.org/",
     icon: (
       <svg
@@ -240,11 +240,14 @@ const logos = [
 
 export default function Powered() {
   return (
-    <section className="py-14 text-muted-foreground">
+    <section className="py-14">
       <MaxWidthWrapper>
-        <h2 className="text-center text-sm font-semibold uppercase">
-          Powered by
-        </h2>
+      <div className="flex max-w-[58rem] flex-col items-center space-y-4 text-center mx-auto">
+        <h2 className="text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl">Powered by</h2>
+        <p className="max-w-[85%] text-sm text-muted-foreground sm:text-base pb-6">
+          We use the best tools to make your life easier
+        </p>
+      </div>
 
         <div className="mt-10 grid grid-cols-2 place-items-center gap-8 md:grid-cols-4">
           {logos.slice(0, 4).map((logo) => (

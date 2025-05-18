@@ -1,31 +1,34 @@
 "use client"
-import LetterGlitch from "@/components/LetterGlitch/LetterGlitch"
-import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button"
+import { RainbowButton } from "@/components/magicui/rainbow-button"
 import Link from "next/link"
 import { useUser } from "@clerk/nextjs";
+import { cn } from "@/lib/utils";
+import { TypingAnimation } from "@/components/magicui/typing-animation";
 
 
 export function HeroLanding() {
   const { isSignedIn } = useUser();
-
-  return (
-    <section className="relative flex flex-col items-center justify-center text-center border-b border-border/50">
-      <div className="absolute z-10 flex flex-col gap-y-10">
-        <h1 className="text-4xl font-bold text-white">GitCollab</h1>
-        <Link href={isSignedIn ? "/dashboard" : "/get-started"}>
-          <InteractiveHoverButton >
-            {isSignedIn ? "Go to Dashboard" : "Get Started"}
-          </InteractiveHoverButton>
-        </Link>
+ return (
+    <div className="relative flex min-h-[85vh] w-full items-center justify-center">
+      <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:60px_60px]" />
+      <div className="relative z-10 flex flex-col items-center gap-y-8 px-4 text-center">
+        <h1 className="text-6xl font-bold tracking-tight sm:text-7xl">
+          <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+            GitCollab
+          </span>
+        </h1>
+        <TypingAnimation className="max-w-2xl text-lg text-muted-foreground sm:text-xl">
+          Effortless Git collaboration: Summarize commits, decode code, and streamline teamwork with AI-powered insights.
+        </TypingAnimation>
+        <div className="flex gap-4">
+          <Link href={isSignedIn ? "/dashboard" : "/get-started"}>
+            <RainbowButton>
+              {isSignedIn ? "Go to Dashboard" : "Get Started"}
+            </RainbowButton>
+          </Link>
+        </div>
       </div>
-      <LetterGlitch
-        glitchColors={["#2b4539", "#61dca3", "#61b3dc"]}
-        glitchSpeed={50}
-        centerVignette={true}
-        outerVignette={false}
-        smooth={true}
-      />
-    </section>
-  );
+    </div>
+  )
 }
 

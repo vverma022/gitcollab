@@ -4,22 +4,29 @@ import Powered from "./_components/landing/powered";
 import { NavBar } from "./_components/navbar";
 import { SiteFooter } from "./_components/site-footer";
 import { NavMobile } from "./_components/mobile-nav";
-import MaxWidthWrapper from "./_components/maxwidth";
+import { cn } from "@/lib/utils";
+import { api } from "@/trpc/server";
 import BentoGrid from "./_components/landing/bentogrid";
 
 export default async function Home() {
-  // void api.post.getLatest.prefetch();
+  api.project.getProjects.prefetch();
   return (
-    <div className="flex min-h-screen flex-col">
+    <>
+    <div className={cn(
+      "[background-size:20px_20px]",
+        "[background-image:linear-gradient(to_right,#e4e4e7_1px,transparent_1px),linear-gradient(to_bottom,#e4e4e7_1px,transparent_1px)]",
+        "dark:[background-image:linear-gradient(to_right,#262626_1px,transparent_1px),linear-gradient(to_bottom,#262626_1px,transparent_1px)]",
+    )}>
      <NavMobile />
      <NavBar scroll={true} />
      <main className="flex-1">
      <HeroLanding />
      <FeaturesSection />
+     <BentoGrid />
     <Powered />
-    <BentoGrid />
     </main>
-    <SiteFooter />
     </div>
+    <SiteFooter />
+    </>
   );
 }
