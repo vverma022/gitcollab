@@ -8,6 +8,7 @@ import AskQuestionsCard from "./ask-questons";
 import Meetingcard from "./meetingcard";
 import ArchiveButton from "./archive-button";
 import InviteButton from "./invite-button";
+import TeamMembers from "./team-members";
 
 export default function Dashboard() {
   const { projects } = useProject();
@@ -35,7 +36,7 @@ export default function Dashboard() {
         <div className="h-4"></div>
 
         <div className="flex items-center gap-4">
-          Team Members 
+          <TeamMembers />
           <InviteButton />
           <ArchiveButton />
         </div>

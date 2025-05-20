@@ -6,14 +6,13 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import AskQuestionsCard from "../dashboard/ask-questons"
 import MDEditor from "@uiw/react-md-editor"
 import CodeReferences from "../dashboard/code-reference"
-import { useQuery } from "@tanstack/react-query"
 
 
 
 
 const QAPage = () => {
   const {selectedprojectId} = useProject()
-  const {data: question} = api.project.getQuestions.useQuery({selectedprojectId})
+  const {data: question} = api.project.getQuestions.useQuery({projectId: selectedprojectId})
   const [questionIndex, setQuestionIndex] = React.useState(0)
   const questions = question?.[questionIndex]
 

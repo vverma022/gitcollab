@@ -3,7 +3,9 @@ import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 import { z } from 'zod';
 import { IndexGitHubRepo } from "@/lib/github-loader";
 
-
+// Cache time constants
+const CACHE_TIME = 1000 * 60 * 5; // 5 minutes
+const STALE_TIME = 1000 * 60; // 1 minute
 
 export const projectRouter = createTRPCRouter({
     createProject: protectedProcedure.input(
@@ -81,6 +83,18 @@ export const projectRouter = createTRPCRouter({
         return await ctx.db.project.update({
             where: {id: input.projectId},
             data: {deletedAt: new Date()}
+        })
+    }),
+    getTeamMembers: protectedProcedure.input(z.object({
+        projectId: z.string()
+    })).query(async ({ctx, input}) => {
+        return await ctx.db.usertoProject.findMany({
+            where: {
+                projectId: input.projectId
+            },
+            include: {
+                user: true
+            }
         })
     })
 })
