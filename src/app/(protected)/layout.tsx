@@ -1,6 +1,5 @@
 import { SidebarProvider } from '@/components/ui/sidebar'
 import { UserButton } from '@clerk/nextjs'
-import { Search } from 'lucide-react'
 import { AppSidebar } from './sidebar'
 import { ModeToggle } from '@/components/ui/mode-change'
 type Props = {

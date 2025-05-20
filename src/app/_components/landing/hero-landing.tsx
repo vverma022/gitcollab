@@ -1,8 +1,7 @@
 "use client"
 import { RainbowButton } from "@/components/magicui/rainbow-button"
 import Link from "next/link"
-import { useUser } from "@clerk/nextjs";
-import { cn } from "@/lib/utils";
+import { useUser } from "@clerk/nextjs"
 import { TypingAnimation } from "@/components/magicui/typing-animation";
 
 

@@ -7,7 +7,6 @@ import { Bot, CreditCard, LayoutDashboard, Plus, Presentation , GitGraph } from 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useSidebar } from "@/components/ui/sidebar"
-import Image from "next/image"
 import useProject from "@/hooks/use-projects"
 
 

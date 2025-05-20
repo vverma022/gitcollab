@@ -3,50 +3,68 @@ import React from 'react'
 import { api } from '@/trpc/react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, GitCommit } from 'lucide-react';
+import MDEditor from '@uiw/react-md-editor';
 
 const CommitLog = () => {
     const { selectedprojectId, projects } = useProject();
     const projectId = selectedprojectId
     const {data: commits} = api.project.getCommits.useQuery({projectId})
   return (
-    <>
-    <ul className='space-y-6'>
+    <div className="w-full max-w-4xl mx-auto px-4">
+      <ul className='space-y-8 relative'>
         {commits?.map((commit, commitIdx) => {
-            return <li key={commit.id} className='realtive flex gap-x-4'>
+            return <li key={commit.id} className='relative flex gap-x-6 group'>
                 <div className={cn(
-                    commitIdx === commits.length - 1 ? 'h6' : '-bottom-6',
+                    commitIdx === commits.length - 1 ? 'h-6' : 'h-full',
                     'absolute left-0 top-0 flex w-6 justify-center'
                 )}>
-                    <div className='w-px translate-x-1'></div>
+                    
                 </div>
-                <>
-                <img src={commit.commitAuthorAvatar} alt="commit avatar" className='relative mt-4 size-8 flex-none rounded-full' />
-                <div className='flex-auto rounded-xl p-3 ring-1 ring-inset'>
-                    <div className='flex justify-between gap-x-4'>
-                        <Link target='_blank' href={`${projects?.githubUrl}/commits/${commit.commitHash}`} className="py-0.5 text-xs leading-5 text-gray-500" >
-                        <span className='font-semibold text-primary'>
-                        {commit.commitAuthorName}
-                        </span>{" "}
-                        <span className='inline-flex items-center text-secondary-foreground'>
-                            commited 
-                            <ExternalLink className='ml-1 size-4'/>
-                        </span>
+                <div className="relative flex items-start">
+                  <div className="absolute left-0 top-0 flex h-6 w-6 items-center justify-center">
+                    
+                  </div>
+                  <img 
+                    src={commit.commitAuthorAvatar} 
+                    alt="commit avatar" 
+                    className='relative mt-4 size-10 flex-none rounded-full ring-2 ring-background shadow-sm hover:ring-primary transition-all duration-200' 
+                  />
+                </div>
+                <div className='flex-auto rounded-xl p-4 ring-1 ring-border bg-card shadow-sm hover:shadow-md transition-all duration-200'>
+                    <div className='flex justify-between items-center gap-x-4'>
+                        <Link 
+                          target='_blank' 
+                          href={`${projects?.githubUrl}/commits/${commit.commitHash}`} 
+                          className="group/link py-0.5 text-xs leading-5 text-muted-foreground hover:text-primary transition-colors duration-200" 
+                        >
+                          <span className='font-semibold text-primary'>
+                            {commit.commitAuthorName}
+                          </span>{" "}
+                          <span className='inline-flex items-center text-muted-foreground'>
+                            committed 
+                            <ExternalLink className='ml-1 size-3 group-hover/link:translate-x-0.5 transition-transform duration-200'/>
+                          </span>
                         </Link>
+                        <div className="flex items-center text-xs text-muted-foreground">
+                          <GitCommit className="size-3 mr-1.5" />
+                          {commit.commitHash.slice(0, 7)}
+                        </div>
                     </div>
-                    <span className='font-semibold text-secondary-foreground'>
+                    <h3 className='mt-2.5 font-semibold text-foreground text-sm'>
                         {commit.commitMessage}
-                    </span>
-                    <pre className='mt-2 whitespace-pre-wrap text-sm leading-0 text-secondary-foreground'>
-                        {commit.summary}
-                    </pre>
+                    </h3>
+                    <div className='mt-3 prose prose-sm dark:prose-invert max-w-none'>
+                        <MDEditor.Markdown 
+                            source={commit.summary} 
+                            className="!bg-transparent !text-muted-foreground"
+                        />
+                    </div>
                 </div>
-                </>
-                </li>
+            </li>
         })}
-
-    </ul>
-    </>
+      </ul>
+    </div>
   )
 }
 
