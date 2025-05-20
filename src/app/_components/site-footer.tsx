@@ -10,11 +10,23 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <div className="flex items-center space-x-2">
-            <GitGraph className="h-6 w-6 text-primary" />
+            <img 
+              src="/la.png" 
+              alt="GitCollab Logo" 
+              className="h-8 w-10 object-contain pb-1" 
+            />
             <span className="font-urban text-xl font-bold">GitCollab</span>
           </div>
           
-          <nav className="flex flex-wrap justify-center gap-6 md:justify-end">
+          <nav className="flex flex-wrap items-center justify-center gap-6 md:justify-end">
+            <Link 
+              href="https://github.com/vverma022/gitcollab" 
+              target="_blank"
+              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <Github className="h-5 w-5" />
+            </Link>
+            <ModeToggle />
             <Link 
               href="/legal/about" 
               className="text-sm text-muted-foreground transition-colors hover:text-foreground"

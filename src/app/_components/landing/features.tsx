@@ -3,14 +3,14 @@ import { GitBranch, MessageCircle, Users } from "lucide-react"
 
 export function FeaturesSection() {
   return (
-    <section id="features" className="container mx-auto py-12 md:py-24">
+    <section id="features" className="container mx-auto py-24 md:py-32">
       <div className="flex max-w-[58rem] flex-col items-center space-y-4 text-center mx-auto">
-        <h2 className="text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl">Features</h2>
-        <p className="max-w-[85%] text-sm text-muted-foreground sm:text-base pb-6">
+        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">Features</h2>
+        <p className="max-w-[85%] text-base text-muted-foreground sm:text-lg">
           Essential tools designed to boost your productivity
         </p>
       </div>
-      <div className="mx-auto grid gap-6 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3 justify-items-center">
+      <div className="mx-auto grid gap-8 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3 justify-items-center mt-16">
         {[
           {
             icon: GitBranch,
@@ -30,13 +30,15 @@ export function FeaturesSection() {
         ].map((feature, index) => (
           <Card
             key={index}
-            className="group relative overflow-hidden border border-border/50 bg-background p-6 transition-all hover:border-foreground/20 hover:shadow-lg"
+            className="group relative overflow-hidden border border-border/50  p-8 transition-all duration-300 hover:border-primary/20 hover:shadow-xl hover:scale-[1.02]"
           >
-            <div className="flex flex-col items-center space-y-4">
-              <feature.icon className="h-12 w-12 text-primary" />
-              <div className="space-y-2 text-center">
-                <h3 className="font-bold">{feature.title}</h3>
-                <p className="text-sm text-muted-foreground">{feature.description}</p>
+            <div className="flex flex-col items-center space-y-6">
+              <div className="rounded-full bg-primary/10 p-4 transition-colors group-hover:bg-primary/20">
+                <feature.icon className="h-8 w-8 text-primary" />
+              </div>
+              <div className="space-y-3 text-center">
+                <h3 className="text-xl font-semibold">{feature.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
               </div>
             </div>
           </Card>

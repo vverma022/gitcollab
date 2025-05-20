@@ -7,6 +7,9 @@ import { NavMobile } from "./_components/mobile-nav";
 import { cn } from "@/lib/utils";
 import { api } from "@/trpc/server";
 import BentoGrid from "./_components/landing/bentogrid";
+import { TestimonialsSection } from "./_components/landing/testimonials";
+import { PricingSection } from "./_components/landing/pricing";
+import { CTASection } from "./_components/landing/cta";
 
 export default async function Home() {
   api.project.getProjects.prefetch();
@@ -23,7 +26,9 @@ export default async function Home() {
      <HeroLanding />
      <FeaturesSection />
      <BentoGrid />
-    <Powered />
+     <PricingSection />
+     <CTASection />
+     <Powered />
     </main>
     </div>
     <SiteFooter />

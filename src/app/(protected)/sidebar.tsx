@@ -42,8 +42,12 @@ export function AppSidebar() {
     return (
        <Sidebar>
         <SidebarHeader>
-            <div className="flex items-center gap-2 ml-10">
-            <GitGraph className="h-10 w-6" />
+            <div className="flex items-center mt-2 gap-2 ml-10">
+            <img 
+              src="/la.png" 
+              alt="GitCollab Logo" 
+              className="h-9 w-12 object-contain pb-1" 
+            />
                {open && (
                   <h1 className="text-xl font-bold">
                   GitCollab
