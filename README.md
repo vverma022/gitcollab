@@ -1,4 +1,5 @@
-# GitColab - T3 Stack Project
+# <img width="1440" alt="Screenshot 2025-05-22 at 12 42 11 AM" src="https://github.com/user-attachments/assets/14db4cda-f3e6-4a78-ae23-82be6bbfed6e" />
+GitColab - T3 Stack Project
 
 This is a **T3 Stack** project bootstrapped with `create-t3-app`.
 
