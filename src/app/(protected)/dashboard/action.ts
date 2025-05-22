@@ -16,6 +16,7 @@ export async function askQuestion(question: string, projectId: string){
     const queryVector = await generateEmbedding(question)
     const vectorQuery = `[${queryVector.join(',')}]`
 
+    console.log('Searching for context with projectId:', projectId)
     const result = await db.$queryRaw`
     SELECT "fileName","sourceCode","summary",
     1 - ("summaryEmbedding" <=> ${vectorQuery}::vector) AS similarity 
@@ -26,6 +27,7 @@ export async function askQuestion(question: string, projectId: string){
     LIMIT 10 
     ` as {fileName: string; sourceCode: string; summary: string}[]
 
+    console.log('Found results:', result.length)
     let context = ''
 
     for(const doc of result){

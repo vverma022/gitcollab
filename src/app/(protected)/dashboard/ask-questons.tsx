@@ -51,7 +51,7 @@ const AskQuestionsCard = () => {
     <DialogContent className='sm:max-w-[80vw]'>
         <DialogHeader>
             <DialogTitle>
-                <Image src='/logogit.jpeg' alt='GitCollab' width={40} height={40} />
+                <Image src='/la.jpeg' alt='GitCollab' width={40} height={40} />
             </DialogTitle>
             <Button disabled={saveAnswer.isPending} variant="outline" onClick={() => {
                 saveAnswer.mutate({
@@ -87,7 +87,11 @@ const AskQuestionsCard = () => {
         </CardHeader>
         <CardContent>
             <form onSubmit={onSubmit}>
-                <Textarea placeholder='While files lets me edit the Home Page ? ' />
+                <Textarea 
+                    placeholder='While files lets me edit the Home Page ? ' 
+                    value={question}
+                    onChange={(e) => setQuestion(e.target.value)}
+                />
                 <div className='h-4'></div>
                 <Button type='submit' disabled={loading}>
                     Ask

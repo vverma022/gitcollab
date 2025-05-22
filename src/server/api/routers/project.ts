@@ -1,7 +1,7 @@
 import { pollCommits } from "@/lib/github";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 import { z } from 'zod';
-import { IndexGitHubRepo } from "@/lib/github-loader";
+import { IndexGitHubRepo, LoadGitHubRepo } from "@/lib/github-loader";
 
 // Cache time constants
 const CACHE_TIME = 1000 * 60 * 5; // 5 minutes
@@ -15,20 +15,39 @@ export const projectRouter = createTRPCRouter({
            githubToken: z.string().optional(),
         })
     ).mutation(async ({ ctx , input }) => {
-        const project = await ctx.db.project.create({
-            data: {
-                githubUrl: input.githubUrl,
-                name: input.name,
-                usertoproject: {
-                    create: {
-                        userId: ctx.user.userId!,
-                    }
-                }
+        try {
+            // First try to load the repo to validate access
+            const docs = await LoadGitHubRepo(input.githubUrl, input.githubToken)
+            if (!docs || docs.length === 0) {
+                throw new Error("No files found in repository or unable to access repository")
             }
-        })
-        await IndexGitHubRepo(project.id,input.githubUrl,input.githubUrl)
-        await pollCommits(project.id)
-        return project
+
+            // If we can access the repo, create the project and index it
+            const project = await ctx.db.$transaction(async (tx) => {
+                const newProject = await tx.project.create({
+                    data: {
+                        githubUrl: input.githubUrl,
+                        name: input.name,
+                        usertoproject: {
+                            create: {
+                                userId: ctx.user.userId!,
+                            }
+                        }
+                    }
+                })
+
+                // Index the repository
+                await IndexGitHubRepo(newProject.id, input.githubUrl, input.githubToken)
+                await pollCommits(newProject.id)
+
+                return newProject
+            })
+
+            return project
+        } catch (error) {
+            console.error("Failed to create project:", error)
+            throw new Error(error instanceof Error ? error.message : "Failed to create project")
+        }
     }),
     getProjects: protectedProcedure.query(async ({ctx}) => {
         return await ctx.db.project.findMany({

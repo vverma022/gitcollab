@@ -12,9 +12,21 @@ import CodeReferences from "../dashboard/code-reference"
 
 const QAPage = () => {
   const {selectedprojectId} = useProject()
-  const {data: question} = api.project.getQuestions.useQuery({projectId: selectedprojectId})
+  const getQuestions = api.project.getQuestions.useMutation()
   const [questionIndex, setQuestionIndex] = React.useState(0)
-  const questions = question?.[questionIndex]
+  const [questions, setQuestions] = React.useState<any[]>([])
+
+  React.useEffect(() => {
+    if (selectedprojectId) {
+      getQuestions.mutate({ projectId: selectedprojectId }, {
+        onSuccess: (data) => {
+          setQuestions(data)
+        }
+      })
+    }
+  }, [selectedprojectId, getQuestions])
+
+  const currentQuestion = questions[questionIndex]
 
   return (
     <Sheet>
@@ -23,7 +35,7 @@ const QAPage = () => {
       <h1 className="text-xl font-semibold">Saved Questions</h1>
       <div className="h-2"></div>
       <div className="flex flex-col gap-2">
-        {questions?.map((question, index) => {
+        {questions?.map((question: { id: string; user: { imageUrl: string | null }; question: string; createdAt: Date; answer: string }, index: number) => {
           return <React.Fragment key={question.id}>
             <SheetTrigger onClick={() => setQuestionIndex(index)}>
                 <div className="flex items-center gap-4 bg-white rounded-lg p-4 shadow border">
@@ -34,7 +46,7 @@ const QAPage = () => {
                         {question.question}
                       </p>
                       <span className="text-xs text-gray-400 whitespace-nowrap">
-                         {question.createdAt.toLocalDateString()}
+                         {question.createdAt.toLocaleDateString()}
                       </span>
                     </div>
                     <p className="text-gray-500 line-clamp-1 text-sm">
@@ -46,14 +58,14 @@ const QAPage = () => {
           </React.Fragment>
         })}
       </div>
-      {question && (
+      {currentQuestion && (
         <SheetContent>
           <SheetHeader>
             <SheetTitle>
-                {question.question}
+                {currentQuestion.question}
             </SheetTitle>
-            <MDEditor.Markdown source={question.answer} />
-            <CodeReferences filesReferences={(question.filesReferences ?? []) as any} />
+            <MDEditor.Markdown source={currentQuestion.answer} />
+            <CodeReferences filesReferences={(currentQuestion.filesReferences ?? []) as any} />
           </SheetHeader>
         </SheetContent>
       )}
