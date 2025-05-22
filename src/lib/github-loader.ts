@@ -5,7 +5,7 @@ import { db } from '@/server/db'
 
 export const  LoadGitHubRepo = async (githubUrl: string, githubToken?: string) => {
      const loader = new GithubRepoLoader(githubUrl , {
-        accessToken: githubToken || ' ',
+        accessToken: githubToken || process.env.GITHUB_TOKEN || ' ',
         branch: 'main',
         ignoreFiles: ['package-lock.json','yarn.lock','pnpm-lock.yaml','bun.lockb'],
         recursive: true,
@@ -17,6 +17,11 @@ export const  LoadGitHubRepo = async (githubUrl: string, githubToken?: string) =
 }
 
 export const IndexGitHubRepo = async (projectId: string, githubUrl: string, githubToken?: string ) => {
+    // Clear any existing embeddings for this project
+    await db.sourceCodeEmbedding.deleteMany({
+        where: { projectId }
+    })
+
     const docs = await LoadGitHubRepo(githubUrl, githubToken)
     const allEmbeddings = await generateEmbeddings(docs)
 

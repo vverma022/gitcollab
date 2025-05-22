@@ -3,10 +3,9 @@ import { db } from '@/server/db'
 import { AIsummariseCommit } from './gemini'
 import axios from 'axios'
 
-export const octokit = new Octokit({
-    auth: process.env.GITHUB_TOKEN,
+export const createOctokit = (token?: string) => new Octokit({
+    auth: token || process.env.GITHUB_TOKEN,
 })
-
 
 type Response = {
     commitHash: string, 
@@ -16,13 +15,14 @@ type Response = {
     commitDate: string;
 }
 
-export const getCommitHashes = async (githuburl: string): Promise<Response[]> => {
+export const getCommitHashes = async (githuburl: string, token?: string): Promise<Response[]> => {
     const [owner, repo] = githuburl.split('/').slice(-2)
 
     if(!owner || !repo){
         throw new Error("Invalid Github Url")
     }
 
+    const octokit = createOctokit(token)
     const { data } = await octokit.rest.repos.listCommits({
         owner,
         repo
@@ -39,12 +39,12 @@ export const getCommitHashes = async (githuburl: string): Promise<Response[]> =>
     }))
 }
 
-export const pollCommits = async (projectId: string) => {
+export const pollCommits = async (projectId: string, token?: string) => {
     const {project , githuburl } = await fetchProjectGithubUrl(projectId)
-    const commitHashes = await getCommitHashes(githuburl)
+    const commitHashes = await getCommitHashes(githuburl, token)
     const unprocessedCommits = await filterUnprocessedCommits(projectId, commitHashes)
     const summariesResponse = await Promise.allSettled(unprocessedCommits.map(commit => {
-        return summariseCommit(githuburl, commit.commitHash)
+        return summariseCommit(githuburl, commit.commitHash, token)
     }))
     const summaries = summariesResponse.map((response) => {
         if(response.status === 'fulfilled'){
@@ -63,22 +63,21 @@ export const pollCommits = async (projectId: string) => {
                 commitAuthorAvatar: unprocessedCommits[index]!.commitAuthorAvatar,
                 commitDate: unprocessedCommits[index]!.commitDate,
                 summary: summaries
-
             }
         })
     })
     return commit
 }
 
-async function summariseCommit(githubUrl: string, commitHash: string){
+async function summariseCommit(githubUrl: string, commitHash: string, token?: string){
     const {data} = await axios.get(`${githubUrl}/commit/${commitHash}.diff`,{
         headers: {
-            Accept: 'application/vnd.github.v3.diff'
+            Accept: 'application/vnd.github.v3.diff',
+            Authorization: token ? `Bearer ${token}` : undefined
         }
     })
 
     return await AIsummariseCommit(data) || ""
-    
 }
 
 async function fetchProjectGithubUrl(projectId: string) {
